@@ -142,4 +142,13 @@
 		font-size: 1.2em;
 		color: var(--text-color);
 	}
+
+	.socials a {
+		color: var(--text-color);
+		text-decoration: none;
+	}
+
+	.socials a:hover {
+		color: var(--accent-color);
+	}
 </style>

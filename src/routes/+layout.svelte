@@ -9,8 +9,11 @@
 		<a href="/education">Education</a>
 	</ul>
 </nav>
-
-<slot />
+<main>
+	<div>
+		<slot />
+	</div>
+</main>
 
 <style>
 	:root {
@@ -19,6 +22,7 @@
 		--bg-color: #0b3954;
 		--text-color: #e91e63;
 		--longer-text-color: #ffcdd2;
+		--accent-color: #ff5722;
 
 		background-color: var(--bg-color);
 
@@ -50,5 +54,19 @@
 
 	nav a:hover {
 		color: var(--longer-text-color);
+	}
+
+	main {
+		padding: 20px;
+		background-color: var(--bg-color);
+		color: var(--text-color);
+
+		/*  center the main content  */
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		/*  align text to center  */
+		text-align: center;
 	}
 </style>
