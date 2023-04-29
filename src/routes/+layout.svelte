@@ -7,6 +7,7 @@
 		<a href="/">Home</a>
 		<a href="/about">About</a>
 		<a href="/education">Education</a>
+		<a href="/profile">profile</a>
 	</ul>
 </nav>
 <main>
