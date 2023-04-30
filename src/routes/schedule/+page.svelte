@@ -88,12 +88,14 @@
 						{:else if courses.staffs.length > 1}
 							<strong>Instructors:</strong>
 							{#each courses.staffs as staff}
-								{staff.firstname} {staff.lastname}
+								<a href={staff.url}>{staff.firstname} {staff.lastname} </a>
 							{/each}
 						{:else}
 							<strong>Instructor:</strong>
-							{courses.staffs[0].firstname}
-							{courses.staffs[0].lastname}
+							<a href={courses.staffs[0].url}>
+								{courses.staffs[0].firstname}
+								{courses.staffs[0].lastname}
+							</a>
 						{/if}
 					</p>
 				</div>
