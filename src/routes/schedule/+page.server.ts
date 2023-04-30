@@ -73,7 +73,7 @@ export const actions = {
 async function fetchCourseEvents(selectedCourses: string[] = []) {
 	if (selectedCourses.length === 0) return [];
 	const CourseEvents: Event[] = [];
-	selectedCourses.forEach(async (course) => {
+	for (const course of selectedCourses) {
 		const response = await fetch(`${env.TP_URL}/ws/1.4/course.php?id=${course}&sem=${semester}`, {
 			method: 'GET',
 			headers: {
@@ -86,11 +86,6 @@ async function fetchCourseEvents(selectedCourses: string[] = []) {
 		const events = data.events;
 
 		CourseEvents.push(...events);
-	});
-
-	/* wait until the foreach is done */
-	while (CourseEvents.length < selectedCourses.length) {
-		await new Promise((resolve) => setTimeout(resolve, 100));
 	}
 
 	return CourseEvents;
