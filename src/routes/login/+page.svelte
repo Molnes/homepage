@@ -11,4 +11,7 @@
 		<input type="password" id="password" name="password" /><br />
 		<input type="submit" value="Continue" />
 	</form>
+	<p>
+		Don't have an account? <a href="/signup">Sign up</a>
+	</p>
 </div>

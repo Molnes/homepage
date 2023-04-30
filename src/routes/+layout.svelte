@@ -8,6 +8,7 @@
 		<a href="/about">About</a>
 		<a href="/education">Education</a>
 		<a href="/profile">profile</a>
+		<a href="/schedule">schedule</a>
 	</ul>
 </nav>
 <main>

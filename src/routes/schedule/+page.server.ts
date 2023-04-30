@@ -1,7 +1,7 @@
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { client } from '$lib/server/prisma';
-import type { CourseList } from '$lib/types/interfaces';
+import type { Course, Event } from '$lib/types/interfaces';
 import { env } from '$env/dynamic/private';
 
 const institution = '194';
@@ -18,11 +18,13 @@ export const load: PageServerLoad = async ({ locals }) => {
 	});
 	user.courses = courses;
 
-	const availableCourses = await fetchAvailableCourses();
+	const courseIds = courses.map((course) => course.id);
+
+	const Courses = await fetchCourseEvents(courseIds);
 
 	return {
 		user: user,
-		availableCourses: availableCourses
+		Courses: Courses
 	};
 };
 
@@ -68,14 +70,28 @@ export const actions = {
 	}
 };
 
-async function fetchAvailableCourses() {
-	const response = await fetch(`${env.TP_URL}/ws/course/?id=${institution}&sem=${semester}`, {
-		method: 'GET',
-		headers: {
-			'content-type': 'application/json',
-			'X-Gravitee-Api-Key': env.TP_TOKEN
-		}
+async function fetchCourseEvents(selectedCourses: string[] = []) {
+	if (selectedCourses.length === 0) return [];
+	const CourseEvents: Event[] = [];
+	selectedCourses.forEach(async (course) => {
+		const response = await fetch(`${env.TP_URL}/ws/1.4/course.php?id=${course}&sem=${semester}`, {
+			method: 'GET',
+			headers: {
+				'content-type': 'application/json',
+				'X-Gravitee-Api-Key': env.TP_TOKEN
+			}
+		});
+		const data: Course = await response.json();
+
+		const events = data.events;
+
+		CourseEvents.push(...events);
 	});
-	const data: CourseList = await response.json();
-	return data;
+
+	/* wait until the foreach is done */
+	while (CourseEvents.length < selectedCourses.length) {
+		await new Promise((resolve) => setTimeout(resolve, 100));
+	}
+
+	return CourseEvents;
 }

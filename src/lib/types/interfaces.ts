@@ -1,3 +1,16 @@
+export interface CourseList {
+	name: string;
+	version: string;
+	timestamp: string;
+	data: parCourse[];
+}
+
+export interface parCourse {
+	id: string;
+	name: string;
+}
+
+/* Actual course */
 export interface Course {
 	name: string;
 	courseid: string;
@@ -32,7 +45,7 @@ export interface Event {
 	summary: string;
 	status: string;
 	terminnr: number;
-	staffs: Staff[];
+	staffs: Staff[] | undefined;
 	room: Room[];
 	title: string;
 	curr: string;
