@@ -133,4 +133,10 @@
 	.body strong {
 		margin-right: 5px;
 	}
+
+	@media (max-width: 767px) {
+		.card {
+			width: 100%;
+		}
+	}
 </style>
