@@ -7,8 +7,8 @@
 		<a href="/">Home</a>
 		<a href="/about">About</a>
 		<a href="/education">Education</a>
-		<a href="/profile">profile</a>
-		<a href="/schedule">schedule</a>
+		<a href="/profile">Profile</a>
+		<a href="/schedule">Schedule</a>
 	</ul>
 </nav>
 <main>
@@ -39,14 +39,31 @@
 		background-color: var(--bg-color);
 		color: var(--text-color);
 	}
-	nav ul {
-		display: flex;
-	}
 
 	nav div {
 		display: flex;
 		align-items: center;
 	}
+
+	nav img {
+		margin-right: 10px;
+	}
+
+	nav h1 {
+		margin: 0;
+	}
+
+	nav ul {
+		display: flex;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	nav li {
+		margin-right: 20px;
+	}
+
 	nav a {
 		display: block;
 		padding: 10px 20px;
@@ -56,6 +73,31 @@
 
 	nav a:hover {
 		color: var(--longer-text-color);
+	}
+
+	/* mobile styles */
+	@media (max-width: 600px) {
+		nav {
+			flex-direction: column;
+			padding: 10px;
+		}
+
+		nav div {
+			margin-bottom: 10px;
+		}
+
+		nav ul {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background-color: var(--bg-color);
+			padding: 10px;
+			border-radius: 10px;
+		}
+
+		nav a {
+			margin: 5px;
+		}
 	}
 
 	main {
