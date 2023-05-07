@@ -6,7 +6,7 @@
 
 <style>
 	.home > a {
-		background-color: var(--text-color);
+		background-color: var(--Primary-Button);
 		border: none;
 		border-radius: 5px;
 		padding: 10px 20px;
@@ -17,10 +17,10 @@
 		cursor: pointer;
 	}
 	.home > a:hover {
-		background-color: var(--longer-text-color);
+		background-color: var(--Accent);
 	}
 	.home > a {
-		color: var(--bg-color);
+		color: var(--Secondary);
 		text-decoration: none;
 	}
 

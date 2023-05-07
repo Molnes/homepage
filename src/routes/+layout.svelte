@@ -21,12 +21,14 @@
 	:root {
 		margin: 0;
 		padding: 0;
-		--bg-color: #0b3954;
-		--text-color: #e91e63;
-		--longer-text-color: #ffcdd2;
-		--accent-color: #ff5722;
 
-		background-color: var(--bg-color);
+		--Primary: #ffffff;
+		--Secondary: #1f2041;
+		--Primary-Button: #ffc857;
+		--Secondary-Button: #4b3f72;
+		--Accent: #ffc857;
+
+		background-color: var(--Secondary);
 
 		font-family: Roboto, sans-serif;
 	}
@@ -36,8 +38,8 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 20px;
-		background-color: var(--bg-color);
-		color: var(--text-color);
+		background-color: var(--Secondary);
+		color: var(--Primary);
 	}
 
 	nav div {
@@ -67,12 +69,12 @@
 	nav a {
 		display: block;
 		padding: 10px 20px;
-		color: var(--text-color);
+		color: var(--Primary);
 		text-decoration: none;
 	}
 
 	nav a:hover {
-		color: var(--longer-text-color);
+		color: var(--Accent);
 	}
 
 	/* mobile styles */
@@ -90,7 +92,7 @@
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			background-color: var(--bg-color);
+			background-color: var(--Secondary);
 			padding: 10px;
 			border-radius: 10px;
 		}
@@ -102,8 +104,8 @@
 
 	main {
 		padding: 20px;
-		background-color: var(--bg-color);
-		color: var(--text-color);
+		background-color: var(--Secondary);
+		color: var(--Primary);
 
 		/*  center the main content  */
 		display: flex;

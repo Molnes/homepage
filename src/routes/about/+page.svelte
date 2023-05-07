@@ -140,15 +140,15 @@
 		align-items: center;
 		gap: 20px;
 		font-size: 1.2em;
-		color: var(--text-color);
+		color: var(--Primary);
 	}
 
 	.socials a {
-		color: var(--text-color);
+		color: var(--Primary);
 		text-decoration: none;
 	}
 
 	.socials a:hover {
-		color: var(--accent-color);
+		color: var(--Accent);
 	}
 </style>

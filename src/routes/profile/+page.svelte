@@ -93,12 +93,18 @@
 	}
 
 	.courseCard button {
-		background-color: var(--accent-color);
+		background-color: var(--Secondary-Button);
 		color: white;
 		border: none;
 		border-radius: 5px;
 		padding: 5px;
 		margin-top: 25%;
+	}
+
+	.courseCard button:hover {
+		background-color: var(--Accent);
+		/* mouse pointer */
+		cursor: pointer;
 	}
 	#searchInput {
 		width: 100%;
