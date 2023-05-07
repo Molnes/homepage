@@ -33,6 +33,19 @@
 		font-family: Roboto, sans-serif;
 	}
 
+	/* get the clients prefferred light mode */
+	@media (prefers-color-scheme: light) {
+		:root {
+			--Primary: #383838;
+			--Secondary: #f4f4f4;
+			--Primary-Button: #c0b283;
+			--Secondary-Button: #ddd1c1;
+			--Accent: #b2a792;
+
+			background-color: var(--Secondary);
+		}
+	}
+
 	nav {
 		display: flex;
 		justify-content: space-between;
