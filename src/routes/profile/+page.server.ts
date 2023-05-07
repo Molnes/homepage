@@ -11,11 +11,23 @@ const semester = '23v';
 export const load: PageServerLoad = async ({ locals }) => {
 	const { user } = await locals.auth.validateUser();
 	if (!user) throw redirect(302, '/login');
-	const courses = await client.course.findMany({
+	const courseUsers = await client.course_user.findMany({
 		where: {
 			user_id: user.userId
 		}
 	});
+
+	const courses = await Promise.all(
+		courseUsers.map(async (courseUser) => {
+			const course = await client.course.findUnique({
+				where: {
+					id: courseUser.course_id
+				}
+			});
+			return course;
+		})
+	);
+
 	user.courses = courses;
 
 	const availableCourses = await fetchAvailableCourses();
@@ -31,15 +43,33 @@ export const actions = {
 		const { user } = await locals.auth.validateUser();
 		if (!user) throw redirect(302, '/login');
 
-		const courseId = (await request.formData()).get('courseId')?.toString();
+		const formData = await request.formData();
+
+		const courseId = formData.get('courseId')?.toString();
 		if (!courseId) throw redirect(302, '/profile');
 
-		const course = await client.course.create({
-			data: {
+		//create a course if it doesn't exist
+		const course = await client.course.upsert({
+			where: {
+				id: courseId
+			},
+			update: {},
+			create: {
 				id: courseId,
-				user_id: user.userId
+				name: formData.get('courseName')?.toString() || 'Unknown Course Name'
 			}
 		});
+
+		const courseUser = await client.course_user.create({
+			data: {
+				id: `${user.userId}-${courseId}`,
+				user_id: user.userId,
+				course_id: courseId
+			}
+		});
+
+		if (!course || !courseUser) throw redirect(302, '/profile');
+
 		return {
 			body: course
 		};

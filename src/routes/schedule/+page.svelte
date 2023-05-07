@@ -56,6 +56,8 @@
 				return 'Error';
 		}
 	}
+
+	console.log(data.Courses);
 </script>
 
 <h1>Schedule for {data.user.username}</h1>
@@ -63,6 +65,8 @@
 	{#if data.user.courses.length == 0}
 		<p>You have no courses in your schedule</p>
 		<p>Add some here on your <a href="/profile">profile</a></p>
+	{:else if data.Courses.length == 0}
+		<p>There are no events in your schedule</p>
 	{:else}
 		{#each data.Courses as courses}
 			<div class="card">

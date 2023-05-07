@@ -15,7 +15,7 @@ model AuthUser {
     // here you can add custom fields for your user
     // e.g. name, email, username, roles, etc.
     username     String        @unique
-    courses      course[]
+    course_user  course_user[]
 
     @@map("auth_user")
 }
@@ -44,10 +44,22 @@ model AuthKey {
 }
 
 model course {
+    id          String        @id @unique
+    name        String
+    course_user course_user[]
+
+    @@map("course")
+}
+
+model course_user {
     id        String   @id @unique
     auth_user AuthUser @relation(fields: [user_id], references: [id])
     user_id   String
 
+    course    course @relation(fields: [course_id], references: [id])
+    course_id String
+
     @@index([user_id])
-    @@map("course")
+    @@index([course_id])
+    @@map("course_user")
 }

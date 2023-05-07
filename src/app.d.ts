@@ -1,6 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
 
-import type { PrismaClient, course } from '@prisma/client';
+import type { PrismaClient, courseUser } from '@prisma/client';
 
 // for information about these interfaces
 declare global {
@@ -21,7 +21,7 @@ declare global {
 		type Auth = import('$lib/server/lucia').Auth;
 		type UserAttributes = {
 			username: string;
-			courses: course[];
+			courses: courseUser[];
 		};
 	}
 }
