@@ -11,14 +11,27 @@ const semester = '23v';
 export const load: PageServerLoad = async ({ locals }) => {
 	const { user } = await locals.auth.validateUser();
 	if (!user) throw redirect(302, '/login');
-	const courses = await client.course.findMany({
+	const courses_users = await client.course_user.findMany({
 		where: {
 			user_id: user.userId
 		}
 	});
+
+	const courses = await Promise.all(
+		courses_users.map(async (course_user) => {
+			const course = await client.course.findUnique({
+				where: {
+					id: course_user.course_id
+				}
+			});
+			return course;
+		})
+	);
+
 	user.courses = courses;
 
-	const courseIds = courses.map((course) => course.id);
+	// parse course ids from courses to remove null and undefined values
+	const courseIds = courses.map((course) => course?.id).filter((id) => id) as string[];
 
 	const Courses = await fetchCourseEvents(courseIds);
 
@@ -26,48 +39,6 @@ export const load: PageServerLoad = async ({ locals }) => {
 		user: user,
 		Courses: Courses
 	};
-};
-
-export const actions = {
-	addCourse: async ({ locals, request }) => {
-		const { user } = await locals.auth.validateUser();
-		if (!user) throw redirect(302, '/login');
-
-		const courseId = (await request.formData()).get('courseId')?.toString();
-		if (!courseId) throw redirect(302, '/profile');
-
-		const course = await client.course.create({
-			data: {
-				id: courseId,
-				user_id: user.userId
-			}
-		});
-		return {
-			body: course
-		};
-	},
-
-	removeCourse: async ({ locals, request }) => {
-		const { user } = await locals.auth.validateUser();
-		if (!user) throw redirect(302, '/login');
-
-		const courseId = (await request.formData()).get('courseId')?.toString();
-		if (!courseId) throw redirect(302, '/profile');
-
-		const course = await client.course.delete({
-			where: {
-				id: courseId
-			}
-		});
-		return {
-			body: course
-		};
-	},
-
-	logout: async ({ locals }) => {
-		await locals.auth.setSession(null);
-		throw redirect(302, '/login');
-	}
 };
 
 async function fetchCourseEvents(selectedCourses: string[] = []) {
