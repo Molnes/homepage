@@ -99,13 +99,16 @@ export const actions = {
 };
 
 async function fetchAvailableCourses() {
-	const response = await fetch(`${env.TP_URL}/ws/course/?id=${institution}&sem=${semester}`, {
-		method: 'GET',
-		headers: {
-			'content-type': 'application/json',
-			'X-Gravitee-Api-Key': env.TP_TOKEN
+	const response = await fetch(
+		`${env.TP_URL}/ws/course/?id=${institution}&sem=${semester}&exam=true`,
+		{
+			method: 'GET',
+			headers: {
+				'content-type': 'application/json',
+				'X-Gravitee-Api-Key': env.TP_TOKEN
+			}
 		}
-	});
+	);
 	const data: CourseList = await response.json();
 	return data;
 }
