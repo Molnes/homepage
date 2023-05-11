@@ -82,9 +82,9 @@ export const actions = {
 		const courseId = (await request.formData()).get('courseId')?.toString();
 		if (!courseId) throw redirect(302, '/profile');
 
-		const course = await client.course.delete({
+		const course = await client.course_user.delete({
 			where: {
-				id: courseId
+				id: `${user.userId}-${courseId}`
 			}
 		});
 		return {
